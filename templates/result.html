@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result | Loan Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body class="d-flex align-items-center vh-100">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card result-card p-5 text-center">
+                <h5 class="section-header justify-content-center mb-4">
+                    <i class="bi bi-file-earmark-check"></i> Assessment Result
+                </h5>
+                
+                <div class="status-pill {{ 'status-approved' if prediction == 'Approved' else 'status-rejected' }}">
+                    <i class="bi {{ 'bi-check-circle-fill' if prediction == 'Approved' else 'bi-x-circle-fill' }} me-2"></i>
+                    {{ prediction }}
+                </div>
+
+                <h2 class="fw-bold mt-3 mb-1">{{ prediction }}</h2>
+                <p class="text-muted small">Reference ID: #L-{{ range(1000, 9999) | random }}</p>
+
+                <div class="probability-container my-4">
+                    <div class="probability-circle">
+                        <div>
+                            <span class="d-block h3 fw-bold mb-0 text-primary">{{ probability }}%</span>
+                            <small class="text-uppercase text-muted" style="font-size: 0.65rem; letter-spacing: 1px;">Approval Likelihood</small>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-muted px-2">
+                    Based on your financial profile and historical approval data, your application has a <strong>{{ probability }}%</strong> probability of being cleared.
+                </p>
+
+                <div class="mt-5 d-grid">
+                    <a href="/" class="btn btn-outline-dark py-3 fw-bold rounded-3">
+                        <i class="bi bi-arrow-left me-2"></i> New Application
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
