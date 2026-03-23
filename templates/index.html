@@ -10,122 +10,231 @@
 </head>
 <body>
 
+<!-- ── Hero ── -->
 <div class="hero-section">
-    <div class="container text-center">
-        <h1 class="fw-bold">Loan Eligibility Portal</h1>
-        <p class="opacity-75">Professional Credit Assessment Tool</p>
+    <div class="hero-badge">
+        <i class="bi bi-shield-check"></i> AI Credit Assessment
+    </div>
+    <h1>Loan Eligibility Portal</h1>
+    <p>Instant eligibility analysis powered by machine learning</p>
+</div>
+
+<!-- ── Steps bar ── -->
+<div class="steps-bar mb-2">
+    <div class="step-dot active">
+        <div class="step-num">1</div>
+        <span class="step-label">Profile</span>
+    </div>
+    <div class="step-dot active">
+        <div class="step-num">2</div>
+        <span class="step-label">Finance</span>
+    </div>
+    <div class="step-dot active">
+        <div class="step-num">3</div>
+        <span class="step-label">Loan</span>
     </div>
 </div>
 
-<div class="container mb-5">
+<!-- ── Main Form ── -->
+<div class="container mb-5" style="position:relative;z-index:1;">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card main-card p-4 p-md-5">
                 <form action="/predict" method="post">
-                    
+
+                    <!-- Section 1: Personal Profile -->
                     <div class="section-header">
-                        <i class="bi bi-person-badge"></i> Personal Profile
+                        <span class="section-icon purple"><i class="bi bi-person-badge-fill"></i></span>
+                        Personal Profile
                     </div>
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <label class="form-label">Gender</label>
-                            <select class="form-select" name="gender">
-                                <option value="1">Male</option>
-                                <option value="0">Female</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Marital Status</label>
-                            <select class="form-select" name="married">
-                                <option value="1">Married</option>
-                                <option value="0">Single / Other</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Dependents</label>
-                            <select class="form-select" name="dependents">
-                                <option value="0">None</option>
-                                <option value="1">1 Dependent</option>
-                                <option value="2">2 Dependents</option>
-                                <option value="3">3+ Dependents</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Education</label>
-                            <select class="form-select" name="education">
-                                <option value="1">Graduate</option>
-                                <option value="0">Undergraduate</option>
-                            </select>
+
+                    <!-- Gender tiles -->
+                    <div class="mb-4">
+                        <label class="form-label">Gender</label>
+                        <div class="tile-group">
+                            <div class="tile-option">
+                                <input type="radio" name="gender" id="g-male" value="1" checked>
+                                <label class="tile-label" for="g-male">
+                                    <i class="bi bi-gender-male"></i> Male
+                                </label>
+                            </div>
+                            <div class="tile-option">
+                                <input type="radio" name="gender" id="g-female" value="0">
+                                <label class="tile-label" for="g-female">
+                                    <i class="bi bi-gender-female"></i> Female
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="section-header">
-                        <i class="bi bi-currency-exchange"></i> Financial Status
+                    <!-- Marital status tiles -->
+                    <div class="mb-4">
+                        <label class="form-label">Marital Status</label>
+                        <div class="tile-group">
+                            <div class="tile-option">
+                                <input type="radio" name="married" id="m-married" value="1" checked>
+                                <label class="tile-label" for="m-married">
+                                    <i class="bi bi-heart-fill"></i> Married
+                                </label>
+                            </div>
+                            <div class="tile-option">
+                                <input type="radio" name="married" id="m-single" value="0">
+                                <label class="tile-label" for="m-single">
+                                    <i class="bi bi-person"></i> Single / Other
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row g-4">
+
+                    <!-- Dependents & Education in 2 cols -->
+                    <div class="row g-3 mb-1">
+                        <div class="col-md-6">
+                            <label class="form-label">Dependents</label>
+                            <div class="tile-group tile-group-4">
+                                <div class="tile-option">
+                                    <input type="radio" name="dependents" id="d0" value="0" checked>
+                                    <label class="tile-label" for="d0"><i class="bi bi-dash-circle"></i> 0</label>
+                                </div>
+                                <div class="tile-option">
+                                    <input type="radio" name="dependents" id="d1" value="1">
+                                    <label class="tile-label" for="d1"><i class="bi bi-person-fill"></i> 1</label>
+                                </div>
+                                <div class="tile-option">
+                                    <input type="radio" name="dependents" id="d2" value="2">
+                                    <label class="tile-label" for="d2"><i class="bi bi-people-fill"></i> 2</label>
+                                </div>
+                                <div class="tile-option">
+                                    <input type="radio" name="dependents" id="d3" value="3">
+                                    <label class="tile-label" for="d3"><i class="bi bi-people-fill"></i> 3+</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Education</label>
+                            <div class="tile-group">
+                                <div class="tile-option">
+                                    <input type="radio" name="education" id="e-grad" value="1" checked>
+                                    <label class="tile-label" for="e-grad"><i class="bi bi-mortarboard-fill"></i> Graduate</label>
+                                </div>
+                                <div class="tile-option">
+                                    <input type="radio" name="education" id="e-ugrad" value="0">
+                                    <label class="tile-label" for="e-ugrad"><i class="bi bi-journal-bookmark"></i> Undergrad</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Financial Status -->
+                    <div class="section-header">
+                        <span class="section-icon pink"><i class="bi bi-cash-stack"></i></span>
+                        Financial Status
+                    </div>
+
+                    <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Primary Monthly Income</label>
                             <div class="input-group has-icon">
-                                <span class="input-group-text text-muted">₹</span>
+                                <span class="input-group-text">₹</span>
                                 <input type="number" class="form-control" name="income" placeholder="e.g. 50000" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Co-Applicant Income</label>
                             <div class="input-group has-icon">
-                                <span class="input-group-text text-muted">₹</span>
+                                <span class="input-group-text">₹</span>
                                 <input type="number" class="form-control" name="coincome" placeholder="0 if none" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Employment</label>
-                            <select class="form-select" name="self_employed">
-                                <option value="0">Salaried Professional</option>
-                                <option value="1">Self Employed / Business</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Credit History</label>
-                            <select class="form-select" name="credit">
-                                <option value="1">Clean / Good Credit</option>
-                                <option value="0">Issues / Poor Credit</option>
-                            </select>
+                    </div>
+
+                    <!-- Employment tiles -->
+                    <div class="mb-4">
+                        <label class="form-label">Employment Type</label>
+                        <div class="tile-group">
+                            <div class="tile-option">
+                                <input type="radio" name="self_employed" id="emp-salaried" value="0" checked>
+                                <label class="tile-label" for="emp-salaried">
+                                    <i class="bi bi-building"></i> Salaried Professional
+                                </label>
+                            </div>
+                            <div class="tile-option">
+                                <input type="radio" name="self_employed" id="emp-self" value="1">
+                                <label class="tile-label" for="emp-self">
+                                    <i class="bi bi-briefcase-fill"></i> Self Employed / Business
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="section-header">
-                        <i class="bi bi-house-door"></i> Loan Requirements
+                    <!-- Credit history tiles -->
+                    <div class="mb-1">
+                        <label class="form-label">Credit History</label>
+                        <div class="tile-group">
+                            <div class="tile-option">
+                                <input type="radio" name="credit" id="cr-good" value="1" checked>
+                                <label class="tile-label" for="cr-good">
+                                    <i class="bi bi-patch-check-fill"></i> Clean / Good Credit
+                                </label>
+                            </div>
+                            <div class="tile-option">
+                                <input type="radio" name="credit" id="cr-bad" value="0">
+                                <label class="tile-label" for="cr-bad">
+                                    <i class="bi bi-exclamation-triangle-fill"></i> Issues / Poor Credit
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row g-4">
+
+                    <!-- Section 3: Loan Requirements -->
+                    <div class="section-header">
+                        <span class="section-icon teal"><i class="bi bi-house-door-fill"></i></span>
+                        Loan Requirements
+                    </div>
+
+                    <div class="row g-3 mb-4">
                         <div class="col-md-4">
-                            <label class="form-label">Amount (in '000s)</label>
+                            <label class="form-label">Amount <span style="color:var(--text-dim)">(in ₹000s)</span></label>
                             <input type="number" class="form-control" name="loanamount" placeholder="e.g. 300" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Term (Months)</label>
+                            <label class="form-label">Term <span style="color:var(--text-dim)">(Months)</span></label>
                             <input type="number" class="form-control" name="term" value="360">
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Property Type</label>
                             <select class="form-select" name="area">
-                                <option value="2">Urban</option>
-                                <option value="1">Semiurban</option>
-                                <option value="0">Rural</option>
-                                <option value="3">Not Specified</option>
+                                <option value="2">🏙️ Urban</option>
+                                <option value="1">🏘️ Semiurban</option>
+                                <option value="0">🌾 Rural</option>
+                                <option value="3">❓ Not Specified</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-predict btn-lg w-100">
-                            Analyze Eligibility <i class="bi bi-arrow-right ms-2"></i>
-                        </button>
-                    </div>
+                    <hr class="fancy-divider">
+
+                    <button type="submit" class="btn-predict">
+                        Analyze My Eligibility &nbsp;<i class="bi bi-arrow-right-circle-fill"></i>
+                    </button>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+// Tile keyboard accessibility
+document.querySelectorAll('.tile-label').forEach(label => {
+    label.addEventListener('keydown', (e) => {
+        if(e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            label.click();
+        }
+    });
+    label.setAttribute('tabindex', '0');
+});
+</script>
 
 </body>
 </html>

@@ -35,19 +35,18 @@ def predict():
     features = scaler.transform(features)
 
     prediction = model.predict(features)[0]
-    probability = model.predict_proba(features)[0][1]
+    probability = model.predict_proba(features)[0][prediction]
 
     if prediction == 1:
-        result = "Loan Approved"
+        result = "Approved"
     else:
-        result = "Loan Rejected"
+        result = "Rejected"
 
     return render_template(
         "result.html",
         prediction=result,
         probability=round(probability*100,2)
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)

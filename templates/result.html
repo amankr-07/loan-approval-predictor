@@ -7,43 +7,94 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../static/style.css">
+    <style>
+        /* Inline animation for ring — needs JS-injected CSS variable */
+        @keyframes ring-fill {
+            from { stroke-dashoffset: 345; }
+            to   { stroke-dashoffset: var(--target-offset); }
+        }
+        .prob-ring {
+            animation: ring-fill 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 0.3s;
+            stroke-dashoffset: 345;
+        }
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .result-card { animation: fade-up 0.6s ease forwards; }
+    </style>
 </head>
-<body class="d-flex align-items-center vh-100">
+<body class="result-body">
 
-<div class="container">
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
-            <div class="card result-card p-5 text-center">
-                <h5 class="section-header justify-content-center mb-4">
-                    <i class="bi bi-file-earmark-check"></i> Assessment Result
-                </h5>
-                
-                <div class="status-pill {{ 'status-approved' if prediction == 'Approved' else 'status-rejected' }}">
-                    <i class="bi {{ 'bi-check-circle-fill' if prediction == 'Approved' else 'bi-x-circle-fill' }} me-2"></i>
-                    {{ prediction }}
+            <div class="card result-card {{ 'approved' if prediction == 'Approved' else 'rejected' }} p-5 text-center">
+
+                <!-- Icon -->
+                <div class="result-icon-wrap {{ 'approved' if prediction == 'Approved' else 'rejected' }}">
+                    <i class="bi {{ 'bi-check-lg' if prediction == 'Approved' else 'bi-x-lg' }}"></i>
                 </div>
 
-                <h2 class="fw-bold mt-3 mb-1">{{ prediction }}</h2>
-                <p class="text-muted small">Reference ID: #L-{{ range(1000, 9999) | random }}</p>
+                <!-- Status pill -->
+                <div class="mb-2">
+                    <span class="status-pill {{ 'status-approved' if prediction == 'Approved' else 'status-rejected' }}">
+                        <i class="bi {{ 'bi-check-circle-fill' if prediction == 'Approved' else 'bi-x-circle-fill' }}"></i>
+                        {{ prediction }}
+                    </span>
+                </div>
 
-                <div class="probability-container my-4">
-                    <div class="probability-circle">
-                        <div>
-                            <span class="d-block h3 fw-bold mb-0 text-primary">{{ probability }}%</span>
-                            <small class="text-uppercase text-muted" style="font-size: 0.65rem; letter-spacing: 1px;">Approval Likelihood</small>
+                <h2 class="result-title">
+                    {{ 'You\'re Eligible!' if prediction == 'Approved' else 'Not Eligible' }}
+                </h2>
+                <p class="ref-id mb-4">REF #L-{{ range(1000, 9999) | random }}</p>
+
+                <!-- Probability ring -->
+                <div class="probability-container my-3">
+                    <div class="prob-ring-wrap">
+                        <svg width="150" height="150" viewBox="0 0 120 120">
+                            <!-- Background track -->
+                            <circle cx="60" cy="60" r="54"
+                                fill="none"
+                                stroke="rgba(255,255,255,0.06)"
+                                stroke-width="10"/>
+                            <!-- Progress ring -->
+                            <circle class="prob-ring" cx="60" cy="60" r="54"
+                                fill="none"
+                                stroke="{{ '#00d4a8' if prediction == 'Approved' else '#ff5c87' }}"
+                                stroke-width="10"
+                                stroke-linecap="round"
+                                stroke-dasharray="345"
+                                style="--target-offset: {{ (345 - (345 * probability / 100)) | int }}"/>
+                        </svg>
+                        <div class="prob-text">
+                            <span class="prob-number" style="color:{{ '#00d4a8' if prediction == 'Approved' else '#ff5c87' }}">
+                                {{ probability }}%
+                            </span>
+                            <span class="prob-label">likelihood</span>
                         </div>
                     </div>
                 </div>
 
-                <p class="text-muted px-2">
-                    Based on your financial profile and historical approval data, your application has a <strong>{{ probability }}%</strong> probability of being cleared.
+                <p style="color:var(--text-mid); font-size:0.88rem; line-height:1.6; padding:0 8px;" class="mb-4">
+                    Based on your financial profile and historical approval data, your application has a
+                    <strong style="color:var(--text)">{{ probability }}% probability</strong> of being cleared.
                 </p>
 
-                <div class="mt-5 d-grid">
-                    <a href="/" class="btn btn-outline-dark py-3 fw-bold rounded-3">
-                        <i class="bi bi-arrow-left me-2"></i> New Application
-                    </a>
+                <!-- Summary chips -->
+                <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
+                    <span class="summary-chip"><i class="bi bi-cpu"></i> AI Assessed</span>
+                    <span class="summary-chip"><i class="bi bi-lightning-charge-fill"></i> Instant Result</span>
+                    <span class="summary-chip"><i class="bi bi-shield-lock"></i> Secure</span>
                 </div>
+
+                <hr class="fancy-divider">
+
+                <a href="/" class="btn-back">
+                    <i class="bi bi-arrow-left"></i> New Application
+                </a>
+
             </div>
         </div>
     </div>
